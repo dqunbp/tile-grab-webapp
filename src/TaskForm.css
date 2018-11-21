@@ -1,0 +1,17 @@
+.task-form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.task-form__map {
+  flex: 2 0 70%;
+}
+
+.task-form__inputs {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  flex: 1 0 30%;
+}

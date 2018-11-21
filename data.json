@@ -1,0 +1,32 @@
+{
+  "tasks": [
+    {
+      "error_message": null, 
+      "id": "306806503473", 
+      "name": "mytishi", 
+      "progress": 25, 
+      "status": 1
+    },
+    {
+      "error_message": null, 
+      "id": "306806503473", 
+      "name": "skolkovo", 
+      "progress": 100, 
+      "status": 1
+    },
+    {
+      "error_message": null, 
+      "id": "306806503473", 
+      "name": "skolkovo", 
+      "progress": 100, 
+      "status": 3
+    },
+    {
+      "error_message": "download error", 
+      "id": "306806503473", 
+      "name": "skolkovo", 
+      "progress": 10, 
+      "status": -1
+    }
+  ]
+}
