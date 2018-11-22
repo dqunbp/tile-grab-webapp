@@ -4,12 +4,15 @@
 
 Prepare build docker image
 
+Run `build-app.sh` with hostname arg
+
 ```bash
-$ docker build -t tile-grabber-webapp-builder:latest .
+$ ./build-app.sh http://example.host[:4000]
 ```
 
-Build app
+Or build manually with commands
 
 ```bash
-$ docker run --rm -v $(pwd):/app -e REACT_APP_HOST=<APP-HOST> tile-grabber-webapp-builder
+$ docker build -t tile-grabber-webapp-builder:latest .
+$ docker run --rm -v $(pwd)/build:/app/build -v $(pwd)/src:/app/src -e REACT_APP_HOST=<APP-HOST> tile-grabber-webapp-builder
 ```

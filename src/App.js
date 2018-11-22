@@ -55,7 +55,9 @@ class App extends Component {
     );
     return (
       <div className="App">
-        <h2 className="App__header">Tasks list</h2>
+        <header>
+          <h2 className="App__header">Tasks list</h2>
+        </header>
         <div className="">
           <div>Task count: {data ? data.length : 0}</div>
           <button className="btn" onClick={this.toggleOpenModal}>

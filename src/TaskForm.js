@@ -18,7 +18,7 @@ export function TaskForm({ onSubmit }) {
 
   const handleInputChange = function(e) {
     let { value, name } = e.target;
-    let numValue = Number(value);
+    let numValue = value === "" ? "" : Number(value);
     setInput({
       ...inputs,
       [name]: isNaN(numValue) ? value : numValue
