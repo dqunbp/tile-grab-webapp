@@ -1,4 +1,4 @@
-# Tile-grabber frontend
+# Tile-grabber webapp
 
 ## Build app
 
