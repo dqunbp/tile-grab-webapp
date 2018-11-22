@@ -1,33 +1,34 @@
-import React from 'react'
-import './TaskItem.css'
+import React from "react";
 
-export function TaskItem({ 
+import "./TaskItem.css";
+import { HOST } from "./constants";
+
+export function TaskItem({
   id,
   name,
   progress,
   status,
   error_message: errorMsg
 }) {
-  const downloadFile = (e) => {
-    e.preventDefault()
-    window.open('localhost', "_blank")
-  }
+  const downloadFile = e => {
+    e.preventDefault();
+    window.open(`${HOST}/download/${id}`, "_blank");
+  };
   return (
     <li>
       {`${id} ${name} progress: ${progress}%`}
       &nbsp;
       <button
-        className="btn btn--link" 
+        className="btn btn--link"
         disabled={errorMsg || status !== 3}
-        onClick={downloadFile}>
+        onClick={downloadFile}
+      >
         download tiff
       </button>
       &nbsp;
-      <span className="task-item-error">
-        {errorMsg}
-      </span>
+      <span className="task-item-error">{errorMsg}</span>
     </li>
-  )
+  );
 }
 
-export default TaskItem
+export default TaskItem;

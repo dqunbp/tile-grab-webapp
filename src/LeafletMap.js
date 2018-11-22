@@ -1,57 +1,79 @@
-import React, { forwardRef, useState, useEffect, useRef } from 'react'
-import './LeafletMap.css'
+import React, { useState, useEffect, useRef } from "react";
+import "./LeafletMap.css";
 
-// const osmTileUrl = 'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png'
-const osmTileUrl = 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga'
+/*global L*/
+/*eslint no-undef: "error"*/
 
-function LeafletMap(props, ref) {
+const osmTileUrl = "http://a.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
-  const mapDivEl = useRef(null)
-  const [leafletEl, setLeafletEl] = useState(null)
+function LeafletMap({ polygon, onSetPolygon }) {
+  const mapDivEl = useRef(null);
+  const [leafletEl, setLeafletEl] = useState(null);
 
-  const [featureGroup, setFeatureGroup] = useState(new L.FeatureGroup()) // eslint-disable-line
-  const [drawControl, setDrawControl] = useState(new L.Control.Draw({ // eslint-disable-line
-    draw: {
-      rectangle: false,
-      polygon: {
-        // icon: new L.DivIcon({ // eslint-disable-line
-        //   iconSize: new L.Point(17, 17), // eslint-disable-line
-        //   className: 'point'
-        // }),
-        allowIntersection: false
+  const [featureGroup] = useState(new L.FeatureGroup());
+  const [drawControl] = useState(
+    new L.Control.Draw({
+      draw: {
+        rectangle: false,
+        polygon: {
+          icon: new L.DivIcon({
+            iconSize: new L.Point(7, 7),
+            className: "point"
+          }),
+          allowIntersection: false
+        },
+        polyline: false,
+        circle: false,
+        marker: false,
+        circlemarker: false
       },
-      polyline: false,
-      circle: false,
-      marker: false,
-      circlemarker: false,
+      edit: false,
+      position: "topright"
+    })
+  );
+
+  const onNewPolygon = ({ layer: polygonLayer }) => {
+    L.Util.setOptions(polygonLayer, { interactive: true, fill: false });
+    onSetPolygon(polygonLayer);
+  };
+
+  useEffect(() => {
+    console.info("mount leaflet map");
+    const leafletMap = L.map(mapDivEl.current, {
+      center: [55.87835875564509, 37.7050219952363],
+      zoom: 5,
+      layers: [L.tileLayer(osmTileUrl)]
+    });
+    setLeafletEl(leafletMap);
+    return () => {
+      console.info("umount leaflet map");
+      leafletMap.remove();
+    };
+  }, []);
+
+  useEffect(
+    () => {
+      if (leafletEl) {
+        leafletEl.addControl(drawControl);
+        featureGroup.addTo(leafletEl);
+        console.log("setup map draw events");
+        leafletEl.on(L.Draw.Event.CREATED, onNewPolygon);
+      }
     },
-    edit: false,
-    position: 'topright'
-  }))
+    [leafletEl]
+  );
 
-  useEffect(() => {
-    if (!leafletEl) {
-      setLeafletEl(
-        L.map(mapDivEl.current, { // eslint-disable-line
-          center: [55.87835875564509, 37.7050219952363],
-          zoom: 5,
-          layers: [L.tileLayer(osmTileUrl)], // eslint-disable-line
-        })
-      )
-    }
-    return () => leafletEl.remove()
-  }, [])
+  useEffect(
+    () => {
+      if (polygon) {
+        featureGroup.addLayer(polygon);
+      }
+      return () => featureGroup.removeLayer(polygon);
+    },
+    [polygon]
+  );
 
-  useEffect(() => {
-    if (leafletEl) {
-      leafletEl.addControl(drawControl)
-      featureGroup.addTo(leafletEl)
-    }
-  }, [leafletEl])
-
-  return (
-    <div id="map" ref={mapDivEl} />
-  )
+  return <div id="map" ref={mapDivEl} />;
 }
 
-export default LeafletMap
+export default LeafletMap;
