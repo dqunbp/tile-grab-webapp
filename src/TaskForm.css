@@ -12,6 +12,5 @@
 .task-form__inputs {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-around; */
   flex: 1 0 30%;
 }

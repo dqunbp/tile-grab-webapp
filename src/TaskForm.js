@@ -17,11 +17,10 @@ export function TaskForm({ onSubmit }) {
   });
 
   const handleInputChange = function(e) {
-    let { value, name } = e.target;
-    let numValue = value === "" ? "" : Number(value);
+    let { value, name, type } = e.target;
     setInput({
       ...inputs,
-      [name]: isNaN(numValue) ? value : numValue
+      [name]: type === "text" ? value : Number(value)
     });
   };
 
@@ -33,6 +32,7 @@ export function TaskForm({ onSubmit }) {
         url,
         zoom,
         timeout,
+        crs,
         delete_tiles: true,
         extent: polygon.toGeoJSON().geometry
       }

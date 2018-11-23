@@ -54,17 +54,19 @@ class App extends Component {
       </Modal>
     );
     return (
-      <div className="App">
+      <div className="app">
         <header>
-          <h2 className="App__header">Tasks list</h2>
+          <h2 className="app__header">Tasks list</h2>
         </header>
-        <div className="">
+        <div className="app__subheader">
           <div>Task count: {data ? data.length : 0}</div>
           <button className="btn" onClick={this.toggleOpenModal}>
             add task
           </button>
         </div>
-        <TaskList data={this.props.data} />
+        <div className="app__body">
+          <TaskList data={this.props.data} />
+        </div>
         {modal}
       </div>
     );

@@ -1,10 +1,19 @@
-.App {
-  padding: 10px;
+.app {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.App__subheader {
+.app__subheader {
   display: flex;
   justify-content: space-around;
+  padding: 2rem;
+  background: whitesmoke;
+}
+
+.app__body {
+  display: flex;
+  justify-content: center;
 }
 
 .btn {
@@ -21,6 +30,13 @@
 }
 
 .btn:disabled {
-  opacity: .3;
+  opacity: 0.3;
   background-color: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px;
+  background: wheat;
 }
