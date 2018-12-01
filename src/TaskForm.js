@@ -5,6 +5,8 @@ import LeafletMap from "./LeafletMap";
 import { postData } from "./utils";
 import { HOST } from "./constants";
 
+import FeafletMap from "./containers/Map";
+
 export function TaskForm({ onSubmit }) {
   // const [error, setError] = useState(null);
   const [polygon, setPolygon] = useState(null);
@@ -51,10 +53,12 @@ export function TaskForm({ onSubmit }) {
     setPolygon(polygon);
   };
 
+  const [test, setTest] = useState("");
+
   return (
     <div className="task-form">
       <div className="task-form__map">
-        <LeafletMap polygon={polygon} onSetPolygon={onSetPolygon} />
+        <FeafletMap polygon={polygon} onSetPolygon={onSetPolygon} />
       </div>
       <form onSubmit={onSubmitForm} className="task-form__inputs">
         <label>Url</label>

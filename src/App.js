@@ -10,6 +10,8 @@ import { HOST } from "./constants";
 
 import Modal from "react-modal";
 
+import PropTypes from "prop-types";
+
 const customStyles = {
   content: {
     width: "80%",
@@ -72,7 +74,12 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  data: PropTypes.array
+};
+
 export default withFetchedData(App, {
   url: `${HOST}/all`,
-  interval: 2000
+  interval: 20000
 });

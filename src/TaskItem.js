@@ -1,7 +1,6 @@
 import React from "react";
 import moment from "moment";
 
-import "./TaskItem.css";
 import { HOST } from "./constants";
 
 export function TaskItem({
