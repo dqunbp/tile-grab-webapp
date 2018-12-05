@@ -1,48 +1,75 @@
-import React, { useState, useRef } from "react";
+import React, { useContext, useRef, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import Modal from "react-modal";
 
-import Input from "../../components/Input";
-import Select, { Option } from "../../components/Select";
+import Input from "./Input";
+import Select, { Option } from "./Select";
+import { TasksContext } from "./App";
+import { setNewTask } from "../reducer";
+import { useInput } from "../hooks";
 
 const modalStyles = {
   overlay: { zIndex: 1000 }
 };
 Modal.setAppElement("#root");
 
-export function TaskFormModal({ isOpen, toggleModal }) {
-  const inputs = [useRef(), useRef(), useRef(), useRef()];
+export function TaskFormModal({ isOpen, closeModal }) {
+  const { dispatch, newTask } = useContext(TasksContext);
+
+  const formRef = useRef();
+
+  const inputs = [
+    useInput(""),
+    useInput(14),
+    useInput(0.5),
+    useInput("epsg:3857")
+  ];
+
   const [url, zoom, timeout, crs] = inputs;
 
-  function submitForm(e) {
-    e.preventDefault();
-    inputs.forEach(({ current: { name, value } = {} }) =>
-      console.log(`name: ${name} value: ${value}`)
-    );
-  }
+  useEffect(
+    () => {
+      !newTask && inputs.forEach(({ reset }) => reset());
+    },
+    [newTask]
+  );
+
+  const submitForm = useCallback(
+    e => {
+      e.preventDefault();
+      let newTask = {};
+      inputs.forEach(({ ref, value }) => {
+        let { name } = ref.current;
+        newTask[name] = value;
+      });
+      dispatch(setNewTask(newTask));
+      closeModal();
+    },
+    [...inputs]
+  );
 
   return (
     <Modal
       className="modal"
       isOpen={isOpen}
-      onRequestClose={() => toggleModal(!isOpen)}
+      onRequestClose={closeModal}
       style={modalStyles}
       contentLabel="TaskFormModal"
       closeTimeoutMS={200}
     >
       <div>
         <h2>Task Form</h2>
-        <form className="form" onSubmit={submitForm}>
+        <form ref={formRef} className="form" onSubmit={submitForm}>
           <Input
             autoFocus
-            ref={url}
             type="url"
             name="url"
             label="Url"
             required
+            {...url.bindToInput}
           />
           <Input
-            ref={zoom}
+            {...zoom.bindToInput}
             type="number"
             min={5}
             max={19}
@@ -51,7 +78,7 @@ export function TaskFormModal({ isOpen, toggleModal }) {
             required
           />
           <Input
-            ref={timeout}
+            {...timeout.bindToInput}
             type="number"
             min={0}
             step={0.5}
@@ -60,7 +87,7 @@ export function TaskFormModal({ isOpen, toggleModal }) {
             required
             pattern="^[0-9]"
           />
-          <Select ref={crs} initialValue="epsg:3857" name="crs" label="Crs">
+          <Select {...crs.bindToInput} name="crs" label="Crs" required>
             <Option value="epsg:3857">Web Mercator</Option>
             <Option value="epsg:3395">World Mercator</Option>
           </Select>

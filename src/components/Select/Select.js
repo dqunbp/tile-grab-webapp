@@ -11,9 +11,10 @@ export function Select({ initialValue, name, label, children }, ref) {
 
   useImperativeMethods(ref, () => ({
     name: selectRef.current.name,
-    value: selectRef.current.value
+    value: selectRef.current.value,
+    validity: selectRef.current.validity,
+    checkValidity: () => selectRef.current.checkValidity()
   }));
-
   return (
     <div className="form-input">
       <div className="input-header">

@@ -1,37 +1,17 @@
 import React, {
   forwardRef,
-  useImperativeMethods,
-  useRef,
   useMemo,
-  useState,
-  useCallback
+  useRef,
+  useImperativeMethods
 } from "react";
 
-export function Input(
-  {
-    autoFocus = false,
-    label,
-    name,
-    type,
-    pattern,
-    min,
-    max,
-    step,
-    required = false,
-    placeholder
-  },
-  ref
-) {
+export function Input({ label, name, value, ...restProps }, ref) {
   const inputRef = useRef();
-  const [value, setValue] = useState(typeof min === "number" ? min : "");
-
   useImperativeMethods(ref, () => ({
     name,
-    value
+    validity: inputRef.current.validity,
+    checkValidity: () => inputRef.current.checkValidity()
   }));
-
-  const onChange = useCallback(e => setValue(e.target.value), []);
-
   return useMemo(
     () => (
       <div className="form-input">
@@ -43,17 +23,9 @@ export function Input(
         <input
           ref={inputRef}
           className="input"
-          autoFocus={autoFocus}
-          required={required}
-          pattern={pattern}
-          type={type}
-          min={min}
-          max={max}
-          step={step}
           name={name}
-          placeholder={placeholder}
           value={value}
-          onChange={onChange}
+          {...restProps}
         />
       </div>
     ),

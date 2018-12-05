@@ -6,3 +6,11 @@
   display: flex;
   margin-top: $l-size;
 }
+
+.newtask-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  flex: 1;
+}
