@@ -14,7 +14,7 @@ export const TasksContext = React.createContext(null);
 export function App({ data = [] }) {
   const [state, dispatch] = useReducer(taskAppReducer, taskAppInitialState);
   const [isOpen, toggleModal] = useState(false);
-  const toggleTaskForm = useCallback(() => toggleModal(!isOpen), []);
+  const toggleTaskForm = useCallback(() => toggleModal(!isOpen), [isOpen]);
   const closeModal = useCallback(() => toggleModal(false), []);
   return (
     <TasksContext.Provider

@@ -1,12 +1,6 @@
 /*global L*/
 /*eslint no-undef: "error"*/
-import React, {
-  forwardRef,
-  useEffect,
-  useRef,
-  useImperativeMethods
-} from "react";
-import PropTypes from "prop-types";
+import React, { forwardRef, useRef, useImperativeMethods } from "react";
 import { useLeaflet, useDrawControl } from "./hooksNoMerging";
 
 function LeafletMap({ polygon, onSetPolygon }, ref) {
@@ -28,13 +22,5 @@ function LeafletMap({ polygon, onSetPolygon }, ref) {
 
   return <div id="map" ref={mapDivEl} />;
 }
-
-// LeafletMap.propTypes = {
-//   polygon: PropTypes.object,
-//   onSetPolygon: PropTypes.func
-// };
-
-//eslint-disable-next-line
-// LeafletMap = forwardRef(LeafletMap);
 
 export default forwardRef(LeafletMap);

@@ -59,17 +59,17 @@ export function NewTask() {
                 className="icon-btn"
                 onClick={toggleTaskForm}
               >
-                e
+                edit
               </button>
               <button type="submit" className="icon-btn">
-                d
+                run
               </button>
               <button
                 type="button"
                 className="icon-btn"
                 onClick={() => dispatch(resetNewTask())}
               >
-                c
+                clear
               </button>
             </div>
           </form>
