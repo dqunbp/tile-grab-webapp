@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  useMemo,
-  useRef,
-  useImperativeMethods
-} from "react";
+import React, { forwardRef, useRef, useImperativeMethods } from "react";
 
 export function Input({ label, name, value, ...restProps }, ref) {
   const inputRef = useRef();
@@ -12,24 +7,21 @@ export function Input({ label, name, value, ...restProps }, ref) {
     validity: inputRef.current.validity,
     checkValidity: () => inputRef.current.checkValidity()
   }));
-  return useMemo(
-    () => (
-      <div className="form-input">
-        <div className="input-header">
-          <label className="input-header__label" htmlFor={name}>
-            {label}
-          </label>
-        </div>
-        <input
-          ref={inputRef}
-          className="input"
-          name={name}
-          value={value}
-          {...restProps}
-        />
+  return (
+    <div className="form-input">
+      <div className="input-header">
+        <label className="input-header__label" htmlFor={name}>
+          {label}
+        </label>
       </div>
-    ),
-    [value]
+      <input
+        ref={inputRef}
+        className="input"
+        name={name}
+        value={value}
+        {...restProps}
+      />
+    </div>
   );
 }
 

@@ -1,13 +1,7 @@
-import React, {
-  forwardRef,
-  useState,
-  useRef,
-  useImperativeMethods
-} from "react";
+import React, { forwardRef, useRef, useImperativeMethods } from "react";
 
-export function Select({ initialValue, name, label, children }, ref) {
+export function Select({ name, label, children, ...restProps }, ref) {
   const selectRef = useRef();
-  const [value, setValue] = useState(initialValue);
 
   useImperativeMethods(ref, () => ({
     name: selectRef.current.name,
@@ -22,13 +16,7 @@ export function Select({ initialValue, name, label, children }, ref) {
           {label}
         </label>
       </div>
-      <select
-        ref={selectRef}
-        className="select"
-        name={name}
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      >
+      <select ref={selectRef} className="select" name={name} {...restProps}>
         {children}
       </select>
     </div>
