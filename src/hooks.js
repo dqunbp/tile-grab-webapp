@@ -1,4 +1,6 @@
 import { useCallback, useState, useRef } from "react";
+import axios from "axios";
+import { backendUrl } from "./constants";
 
 export function useInput(initial, numAsString = true) {
   const ref = useRef();
@@ -27,4 +29,40 @@ export function useInput(initial, numAsString = true) {
       value
     }
   };
+}
+
+export function useApiCall(url) {
+  let [state, setState] = useState({
+    pending: false,
+    error: null
+  });
+  return {
+    pending: state.pending,
+    error: state.error,
+    call: useCallback(id => {
+      setState({
+        pending: true,
+        error: null
+      });
+      axios
+        .get(`${backendUrl}/${url}${id}`)
+        .then(response => {
+          setState({ ...state, pending: false });
+          return response.data;
+        })
+        .catch(error => {
+          setState({ error, pending: false });
+        });
+    }, [])
+  };
+}
+
+export function useDownloadLink(id) {
+  return useCallback(
+    e => {
+      e.preventDefault();
+      window.open(`${backendUrl}/download/${id}`, "_blank");
+    },
+    [id]
+  );
 }

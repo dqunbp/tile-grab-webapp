@@ -1,30 +1,21 @@
-import React, { useContext, useMemo } from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 
 import TaskListItem from "./TaskListItem";
 import { TasksContext } from "./App";
-import NewTask from "./NewTask";
+import NewTask from "./NewTaskContainer";
 
 export function TaskList() {
-  const { tasks, newTask } = useContext(TasksContext);
-  const emptyMessage = useMemo(
-    () => <div className="list__empty-message">No items</div>,
-    []
-  );
-  const renderNewTask = useMemo(() => <NewTask />, []);
+  const { tasks } = useContext(TasksContext);
+  const emptyMessage = <div className="list__empty-message">No items</div>;
   const items = tasks.map((item, index) => (
     <TaskListItem key={index} {...item} />
   ));
   return (
-    <div className="list">
-      {newTask && renderNewTask}
-      {tasks.length === 0 ? !newTask && emptyMessage : items}
-    </div>
+    <>
+      <NewTask />
+      <div className="list">{tasks.length === 0 ? emptyMessage : items}</div>
+    </>
   );
 }
-
-TaskList.propTypes = {
-  tasks: PropTypes.array
-};
 
 export default TaskList;

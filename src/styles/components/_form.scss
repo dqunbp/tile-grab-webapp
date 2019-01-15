@@ -1,10 +1,12 @@
 .form {
-  padding: $m-size;
+  padding: $s-size;
+  width: 100%;
 }
 
 .form__submit {
   display: flex;
   margin-top: $l-size;
+  justify-content: flex-end;
 }
 
 .newtask-form {

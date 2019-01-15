@@ -1,37 +1,40 @@
-import React, { useState, useCallback, useReducer } from "react";
+import React, { useReducer } from "react";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faTimesCircle,
+  faPlus,
+  faCheckCircle,
+  faEraser
+} from "@fortawesome/free-solid-svg-icons";
 
 import TaskList from "../TaskList";
 import AddTask from "../AddTask";
 import Map from "../Map";
-import TaskFormModal from "../TaskFormModal";
 
 import { backendUrl } from "../../constants";
 import { withFetchedData } from "../../withData";
 import { taskAppInitialState, taskAppReducer } from "../../reducer";
 
+library.add(faTimesCircle, faCheckCircle, faPlus, faEraser);
+
 export const TasksContext = React.createContext(null);
 
 export function App({ data = [] }) {
   const [state, dispatch] = useReducer(taskAppReducer, taskAppInitialState);
-  const [isOpen, toggleModal] = useState(false);
-  const toggleTaskForm = useCallback(() => toggleModal(!isOpen), [isOpen]);
-  const closeModal = useCallback(() => toggleModal(false), []);
   return (
     <TasksContext.Provider
       value={{
         ...state,
         tasks: data,
-        dispatch,
-        toggleTaskForm
+        dispatch
       }}
     >
       <div>
         <div className="container">
           <div className="sidebar">
             <TaskList />
-            <AddTask openModal={toggleTaskForm} taskCount={3} />
+            <AddTask />
           </div>
-          <TaskFormModal isOpen={isOpen} closeModal={closeModal} />
           <Map />
         </div>
       </div>

@@ -37,6 +37,13 @@
 
 .list-item--new {
   border: 2px dashed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7rem;
+  width: 100%;
+  transition: height 0.2s ease;
+  flex: none;
 }
 
 .list-item__buttons {
