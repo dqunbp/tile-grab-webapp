@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { backendUrl } from "./constants";
 
@@ -65,4 +65,40 @@ export function useDownloadLink(id) {
     },
     [id]
   );
+}
+
+export function useDndFileReader(nodeRef, cb) {
+  let [error, setError] = useState(null);
+  let [dragover, setDragover] = useState(false);
+  let readAndParseFile = useCallback((event, callback) => {
+    event.preventDefault();
+    setError(null);
+    let reader = new FileReader();
+    reader.readAsText(event.dataTransfer.files[0]);
+    reader.onload = function(event) {
+      try {
+        setDragover(false);
+        callback(JSON.parse(event.target.result));
+      } catch (err) {
+        console.error("Loading file error", err);
+        setError(err);
+      }
+    };
+  }, []);
+  useEffect(
+    () => {
+      if (nodeRef.current) {
+        console.log(nodeRef);
+        let { current: node } = nodeRef;
+        // node.ondragover = () => false;
+        // node.ondragend = () => false;
+        node.ondragover = e => e.preventDefault();
+        node.ondragenter = () => setDragover(true);
+        node.ondragleave = () => setDragover(false);
+        node.ondrop = e => readAndParseFile(e, cb);
+      }
+    },
+    [nodeRef.current]
+  );
+  return [dragover, error];
 }

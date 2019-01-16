@@ -1,9 +1,9 @@
 /*global L*/
 /*eslint no-undef: "error"*/
 import React, { forwardRef, useRef, useImperativeMethods } from "react";
-import { useLeaflet, useDrawControl } from "./hooksNoMerging";
+import { useLeaflet, useDrawControl } from "./hooks";
 
-function LeafletMap({ polygon, onSetPolygon }, ref) {
+function LeafletMap({ onSetPolygon }, ref) {
   const mapDivEl = useRef(null);
   const leafletEl = useLeaflet(mapDivEl);
   const [featureGroup] = useDrawControl(leafletEl, {
@@ -15,8 +15,12 @@ function LeafletMap({ polygon, onSetPolygon }, ref) {
   });
 
   useImperativeMethods(ref, () => ({
+    mapDivRef: mapDivEl,
     removeLayer: layer => {
       featureGroup.removeLayer(layer);
+    },
+    addLayer: layer => {
+      featureGroup.addLayer(layer);
     }
   }));
 

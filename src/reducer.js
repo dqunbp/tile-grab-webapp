@@ -1,10 +1,12 @@
 export const taskAppInitialState = {
-  polygon: undefined
+  polygon: undefined,
+  fromGeoJson: false
 };
 
 export const SET_POLYGON = "SET_POLYGON";
 export const RESET_NEW_TASK = "RESET_NEW_TASK";
 
+// export const
 export const setPolygon = polygon => ({
   type: SET_POLYGON,
   polygon

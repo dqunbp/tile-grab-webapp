@@ -1,3 +1,5 @@
+/*global L*/
+/*eslint no-undef: "error"*/
 import React, {
   useState,
   useEffect,
@@ -9,6 +11,7 @@ import React, {
 import LeafletMap from "./LeafletMapBackRef";
 import { TasksContext } from "../App";
 import { setPolygon } from "../../reducer";
+import { useDndFileReader } from "../../hooks";
 
 export function Map() {
   const { dispatch, polygon } = useContext(TasksContext);
@@ -24,6 +27,23 @@ export function Map() {
     [polygonLayer]
   );
 
+  const [dragover, dndError] = useDndFileReader(
+    leafletMap.current ? leafletMap.current.mapDivRef : leafletMap,
+    data => {
+      console.log(data);
+      try {
+        let layer = L.geoJSON(data);
+        leafletMap.current.addLayer(layer);
+        _onSetPolygonLayer(layer);
+      } catch (error) {
+        alert("Invalid file!");
+      }
+      // let layer = L.geoJSON(data);
+    }
+  );
+
+  useEffect(() => dndError && alert("Error while file parsing!"), [dndError]);
+
   // remove polygon if it removed from store
   useEffect(
     () => {
@@ -38,20 +58,13 @@ export function Map() {
   useEffect(
     () => {
       return () => {
-        console.log("remove polygon");
         polygonLayer && leafletMap.current.removeLayer(polygonLayer);
       };
     },
     [polygonLayer]
   );
 
-  return (
-    <LeafletMap
-      ref={leafletMap}
-      polygon={polygonLayer}
-      onSetPolygon={_onSetPolygonLayer}
-    />
-  );
+  return <LeafletMap ref={leafletMap} onSetPolygon={_onSetPolygonLayer} />;
 }
 
 export default Map;
