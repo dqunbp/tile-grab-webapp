@@ -1,12 +1,12 @@
 /*global L*/
 /*eslint no-undef: "error"*/
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 const OSM_TILE_URL = "http://a.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 const DEFAULT_LEAFLET_MAP_CONFIG = {
   center: [55.87835875564509, 37.7050219952363],
-  zoom: 5,
+  zoom: 11,
   layers: [L.tileLayer(OSM_TILE_URL)],
   attributionControl: false
 };
@@ -109,7 +109,10 @@ export function useDrawControl(
     [leafletEl]
   );
 
-  return [fG, drawControl];
+  const addLayer = useCallback(layer => fG.addLayer(layer), [fG]);
+  const removeLayer = useCallback(layer => fG.removeLayer(layer), [fG]);
+
+  return [fG, addLayer, removeLayer, drawControl];
 }
 
 export function usePrevious(value) {

@@ -9,7 +9,7 @@ import {
 
 import TaskList from "../TaskList";
 import AddTask from "../AddTask";
-import Map from "../Map";
+import LeafletMap from "../Map/LeafletMap";
 
 import { backendUrl } from "../../constants";
 import { withFetchedData } from "../../withData";
@@ -35,7 +35,7 @@ export function App({ data = [] }) {
             <TaskList />
             <AddTask />
           </div>
-          <Map />
+          <LeafletMap />
         </div>
       </div>
     </TasksContext.Provider>

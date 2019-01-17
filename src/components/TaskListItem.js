@@ -48,7 +48,7 @@ export function TaskListItem({
         </div>
       );
     },
-    [status, progress]
+    [id, name, status, progress]
   );
 }
 

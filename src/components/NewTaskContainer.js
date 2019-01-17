@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { TasksContext } from "./App";
 import NewTaskForm from "./NewTaskForm";
-import { resetNewTask } from "../reducer";
+import { resetNewTask, resetAll } from "../reducer";
 
 import { apiClient } from "../utils";
 
@@ -12,7 +12,7 @@ export function NewTask() {
   const [isOpen, setIsOpen] = useState(false);
   const onClear = useCallback(() => dispatch(resetNewTask()));
   const onCancel = useCallback(() => {
-    onClear();
+    dispatch(resetAll());
     setIsOpen(false);
   }, []);
   const onSubmit = useCallback(
@@ -42,6 +42,8 @@ export function NewTask() {
     },
     [polygon]
   );
+
+  useEffect(() => polygon && setIsOpen(true), [polygon]);
 
   return (
     <div

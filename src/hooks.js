@@ -88,7 +88,6 @@ export function useDndFileReader(nodeRef, cb) {
   useEffect(
     () => {
       if (nodeRef.current) {
-        console.log(nodeRef);
         let { current: node } = nodeRef;
         // node.ondragover = () => false;
         // node.ondragend = () => false;
