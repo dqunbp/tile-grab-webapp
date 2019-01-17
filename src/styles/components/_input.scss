@@ -1,0 +1,34 @@
+.input {
+  padding: 10px;
+  font-size: 20px;
+  outline: none;
+  @extend %border-style;
+  border-color: $gray;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.input-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-header__label {
+  position: relative;
+  left: -2px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.input-header__rqrd {
+  color: red;
+}
+
+.input-footer__msg {
+  display: flex;
+  justify-content: flex-end;
+}

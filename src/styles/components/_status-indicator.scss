@@ -1,0 +1,26 @@
+.status-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.indicator {
+  width: 3rem;
+  height: 3rem;
+  background: #fff;
+  border-radius: 50%;
+  margin-right: $s-size;
+}
+
+.indicator--success {
+  background: greenyellow;
+  border: 1px solid darken(greenyellow, 40%);
+}
+.indicator--failure {
+  background: red;
+  border: 1px solid darken(red, 20%);
+}
+.indicator--pending {
+  background: yellow;
+  border: 1px solid darken(yellow, 20%);
+}

@@ -38,7 +38,6 @@ export function withFetchedData(WrappedComponent, { url, interval = 4000 }) {
           return response.json();
         })
         .then(data => {
-          console.log(data);
           this.setState({ data });
         })
         .catch(err => {

@@ -1,0 +1,18 @@
+.form {
+  padding: $s-size;
+  width: 100%;
+}
+
+.form__submit {
+  display: flex;
+  margin-top: $l-size;
+  justify-content: flex-end;
+}
+
+.newtask-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  flex: 1;
+}

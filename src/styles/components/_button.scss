@@ -1,0 +1,23 @@
+.btn {
+  border-color: cornflowerblue;
+  outline: none;
+}
+
+.btn:hover:not([disabled]) {
+  background-color: lightblue;
+  transition: background-color 100ms ease-in-out;
+}
+
+.btn:active:not([disabled]) {
+  background-color: darken(lightblue, 10%);
+  transition: background-color 100ms ease;
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  background-color: none;
+}
+
+.btn--flex {
+  flex: 1;
+}

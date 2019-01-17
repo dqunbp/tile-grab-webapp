@@ -1,0 +1,21 @@
+#map {
+  flex: 4 0 45rem;
+
+  margin: $s-size;
+  margin-left: 0;
+  @extend %border-style;
+}
+
+.point {
+  background-color: whitesmoke;
+  border: 1px black solid;
+  border-radius: 50%;
+  top: -1px;
+  left: -1px;
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  background-clip: padding-box;
+  @extend %border-style;
+}
