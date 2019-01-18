@@ -1,9 +1,9 @@
-import React, { forwardRef, useRef, useImperativeMethods } from "react";
+import React, { forwardRef, useRef, useImperativeHandle } from "react";
 
 export function Select({ name, label, children, ...restProps }, ref) {
   const selectRef = useRef();
 
-  useImperativeMethods(ref, () => ({
+  useImperativeHandle(ref, () => ({
     name: selectRef.current.name,
     value: selectRef.current.value,
     validity: selectRef.current.validity,

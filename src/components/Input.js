@@ -1,8 +1,8 @@
-import React, { forwardRef, useRef, useImperativeMethods } from "react";
+import React, { forwardRef, useRef, useImperativeHandle } from "react";
 
 export function Input({ label, name, value, ...restProps }, ref) {
   const inputRef = useRef();
-  useImperativeMethods(ref, () => ({
+  useImperativeHandle(ref, () => ({
     name,
     validity: inputRef.current.validity,
     checkValidity: () => inputRef.current.checkValidity()

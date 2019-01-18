@@ -1,4 +1,6 @@
 const isProduction = process.env.NODE_ENV === "production";
-export const backendUrl = isProduction
-  ? process.env.REACT_APP_HOST
-  : "http://localhost:5000";
+export const {
+  REACT_APP_BACKEND_URL: backendUrl = isProduction
+    ? `${window.location.protocol}//${window.location.host}/api`
+    : "http://localhost:5000"
+} = process.env;
